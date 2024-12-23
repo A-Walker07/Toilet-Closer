@@ -1,0 +1,76 @@
+#include <Servo.h>
+
+
+// Define the pins for the ultrasonic sensor
+const int trigPin = 9; // Trigger pin
+const int echoPin = 10; // Echo pin
+const int servoPin = 5; //servo pin
+
+// time waiting
+const int timeWaitingIs = 5* 1 * 1000; // minutes, seconds, milliseconds
+
+// Define the distance threshold in inches
+const float distanceThreshold = 72.0; // 72 inches
+
+// Speed of sound in cm/us
+const float soundSpeed = 0.0343; 
+
+// Conversion factor from cm to inches
+const float cmToInches = 0.393701;
+
+//////////////////// servo
+Servo myServo;
+
+
+
+
+
+
+
+
+
+void setup() {
+  // Initialize the serial communication for debugging
+  Serial.begin(9600);
+
+  // Set the trigPin as an output and echoPin as an input
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  //attaching servo
+  myServo.attach(servoPin);
+}
+
+void loop() {
+
+  //
+  
+  const int clockwiseSpeed = 180;
+  const int counterClockwiseSpeed = 0;
+  const int stopped = 90;
+
+  
+  
+
+  
+
+ 
+     myServo.write (0);
+        delay (1000);
+        myServo.write (90);
+        delay(1000);
+
+        myServo.write (180);
+        delay (1000);
+        myServo.write (90);
+        delay( 1000);
+
+        
+      
+
+
+  // Short delay before the next check
+  delay(1000);
+}
+
+
