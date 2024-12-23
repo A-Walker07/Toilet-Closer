@@ -3,7 +3,7 @@ const int trigPin = 9; // Trigger pin
 const int echoPin = 10; // Echo pin
 
 // time waiting
-const int timeWaitingIs = 5* 60 * 1000 // minutes, seconds, milliseconds
+const int timeWaitingIs = 5* 1 * 1000; // minutes, seconds, milliseconds
 
 // Define the distance threshold in inches
 const float distanceThreshold = 72.0; // 72 inches
@@ -35,7 +35,7 @@ void loop() {
   // Check if the distance is within the threshold
   if (distance <= distanceThreshold) {
     Serial.println("Distance within 72 inches. Waiting for 5 minutes...");
-    delay(300000); // Wait for 5 minutes (5 minutes = 300,000 milliseconds)
+    delay(distanceThreshold); // Wait for 5 minutes (5 minutes = 300,000 milliseconds)
   } else {
     Serial.println("Distance out of range. Checking again...");
   }
