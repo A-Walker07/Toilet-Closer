@@ -1,0 +1,156 @@
+#include <Servo.h>
+
+
+// Define the pins for the ultrasonic sensor
+
+const int servoPin = 5; //servo pin
+
+int y=0;
+
+// time waiting
+const int timeWaitingIs = 5* 1 * 1000; // minutes, seconds, milliseconds
+
+
+
+int x = 0;
+//////////////////// servo
+Servo myServo;
+
+
+
+
+
+
+
+// Define the pins for the ultrasonic sensor
+const int trigPin = 9; // Trigger pin
+const int echoPin = 10; // Echo pin
+
+
+
+// Define the distance threshold in inches
+const float distanceThreshold = 5.0; // 72 inches
+
+// Speed of sound in cm/us
+const float soundSpeed = 0.0343; 
+
+// Conversion factor from cm to inches
+const float cmToInches = 0.393701;
+
+void setup() {
+  // Initialize the serial communication for debugging
+   // Initialize the serial communication for debugging
+  Serial.begin(9600);
+
+  // Set the trigPin as an output and echoPin as an input
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  //attaching servo
+  myServo.attach(servoPin);
+  
+}
+
+void loop() {
+myServo.write(90);
+  //
+  const int clockwiseSpeed = 180;
+  const int counterClockwiseSpeed = 0;
+  const int stopped = 90;
+
+  
+  
+// Get the distance from the ultrasonic sensor
+  float distance = getDistance();
+
+  // Print the distance to the Serial Monitor
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" inches");
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+  // Check if the distance is within the threshold
+  if (distance < distanceThreshold) {
+    Serial.println("Distance within 72 inches. Waiting for 5 minutes...");
+    delay(1000); // Wait for 5 minutes (5 minutes = 300,000 milliseconds)
+    x = x+1;
+    Serial.println("if statement 1");
+    delay(3000);
+    float distance = getDistance();
+
+     if ((distance >= distanceThreshold)) {
+      // Short delay before the next check
+      Serial.println ("This is working");
+      Serial.println("if statement 3");
+      delay(1000);
+
+       
+       delay (1000);
+                        
+              myServo.write (0);
+              delay (1000);
+                    myServo.write (90);
+                    delay(1000);
+            
+                    myServo.write (180);
+                    delay (1000);
+                    myServo.write (90);
+                    delay( 1000);
+                    delay (5000);
+          
+          
+
+ 
+
+
+ 
+      
+}
+  }
+    
+  if (distance > distanceThreshold) {
+    x= 0;
+    Serial.println("if statement 2");
+  }
+  
+
+
+  delay (1000);
+  Serial.println (x);
+
+}
+
+
+  // Function to calculate the distance using the ultrasonic sensor
+float getDistance() {
+  // Clear the trigPin by setting it LOW
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  // Set the trigPin HIGH for 10 microseconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Read the echoPin and calculate the duration
+  long duration = pulseIn(echoPin, HIGH);
+
+  // Calculate the distance in cm
+  float distanceCm = (duration * soundSpeed) / 2;
+
+  // Convert the distance to inches
+  return distanceCm * cmToInches;
+}
+
+
